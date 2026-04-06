@@ -119,7 +119,12 @@ class Trader:
         if position is None:
             return
 
-        reason = "익절" if signal == Signal.SELL_PROFIT else "손절"
+        reason_map = {
+            Signal.SELL_PROFIT: "익절",
+            Signal.SELL_LOSS: "손절",
+            Signal.SELL_EOD: "장마감 청산",
+        }
+        reason = reason_map.get(signal, "매도")
         try:
             self.api.sell(ticker, position.qty)
             del self.positions[ticker]
@@ -139,12 +144,12 @@ class Trader:
             try:
                 if not self._is_market_open():
                     now = self._now_str()
-                    # 장 마감 후 보유 잔고 정리
+                    # 장 마감 강제 청산
                     if now >= config.MARKET_CLOSE and self.positions:
-                        logger.info("장 마감 → 보유 포지션 전량 매도")
+                        logger.info("장 마감 → 보유 포지션 전량 청산")
                         self._sync_positions()
                         for ticker in list(self.positions.keys()):
-                            self._handle_sell(ticker, Signal.SELL_LOSS)
+                            self._handle_sell(ticker, Signal.SELL_EOD)
                         etf_refresh_done = False  # 다음 날 재선별
                     logger.debug("장외 시간 (%s). 대기 중...", now)
                     time.sleep(config.LOOP_INTERVAL_SEC)
@@ -163,7 +168,7 @@ class Trader:
                 # 각 ETF 전략 평가
                 for ticker in self.target_etfs:
                     try:
-                        candles = self.api.get_minute_candles(ticker, interval=5)
+                        candles = self.api.get_minute_candles(ticker, interval=config.CANDLE_INTERVAL_MIN)
                         price_info = self.api.get_current_price(ticker)
                         current_price = price_info["current_price"]
                         position = self.positions.get(ticker)

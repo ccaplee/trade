@@ -147,6 +147,7 @@ class KISApi:
         for ticker in config.ETF_UNIVERSE:
             try:
                 info = self.get_current_price(ticker)
+                # 거래량 × |등락률| = 유동성과 변동성을 동시에 반영한 단타 적합도 점수
                 score = info["volume"] * abs(info["change_rate"])
                 candidates.append((ticker, score))
             except Exception as exc:

@@ -33,6 +33,7 @@ TOP_ETF_COUNT = 5          # 선별할 상위 ETF 수
 
 # ── 트레이딩 루프 설정 ─────────────────────────────────────────────────────────
 LOOP_INTERVAL_SEC = 30     # 매매 루프 주기 (초)
+CANDLE_INTERVAL_MIN = 5    # 분봉 단위 (분)
 MARKET_OPEN = "09:00"      # 장 시작 시각
 MARKET_CLOSE = "15:20"     # 장 마감 시각 (동시호가 전 매도 마감)
 
@@ -51,8 +52,6 @@ ETF_UNIVERSE = [
     "102110",  # TIGER 200
     "148020",  # KBSTAR 200
     "278540",  # KODEX MSCI Korea TR
-    "kodex_bio",  # placeholder — 종목코드로 교체 필요
+    "261220",  # KODEX 200 커버드콜5%OTM
+    "143460",  # TIGER 헬스케어
 ]
-
-# 종목코드 형식 오류 방지용 필터 (6자리 숫자만 허용)
-ETF_UNIVERSE = [code for code in ETF_UNIVERSE if code.isdigit() and len(code) == 6]

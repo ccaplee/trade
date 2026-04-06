@@ -14,6 +14,7 @@ class Signal(Enum):
     BUY = auto()
     SELL_PROFIT = auto()   # 익절
     SELL_LOSS = auto()     # 손절
+    SELL_EOD = auto()      # 장 마감 강제 청산
     HOLD = auto()
 
 
