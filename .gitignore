@@ -1,0 +1,26 @@
+# 자동 생성 파일 / 캐시
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+
+# 가상 환경
+.venv/
+venv/
+env/
+
+# 환경 변수 (절대 커밋 금지)
+.env
+
+# 토큰 캐시 (민감 정보 포함)
+.kis_token_cache.json
+
+# 로그
+logs/
+*.log
+
+# IDE
+.idea/
+.vscode/
+*.swp
