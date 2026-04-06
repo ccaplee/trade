@@ -38,8 +38,10 @@ def is_market_open() -> bool:
 
 
 def is_new_buy_allowed() -> bool:
-    """신규 매수 가능 여부 (마감 10분 전 이후 신규 매수 금지)"""
+    """신규 매수 가능 여부 (주말 및 마감 10분 전 이후 신규 매수 금지)"""
     now = datetime.now(KST)
+    if now.weekday() >= 5:  # 토/일
+        return False
     t = now.strftime("%H:%M")
     return config.MARKET_OPEN_TIME <= t < config.MARKET_CLOSE_TIME
 
