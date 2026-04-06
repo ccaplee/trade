@@ -1,0 +1,5 @@
+kis_etf_trader/
+__pycache__/
+*.pyc
+.env
+logs/
