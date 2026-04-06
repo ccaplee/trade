@@ -109,7 +109,7 @@ class KISClient:
 
     def _issue_token(self) -> TokenInfo:
         """OAuth2 접근토큰 발급"""
-        url = f"{self.base_url}/oauth2/tokenP"
+        url = f"{self.base_url}/oauth2/tokenP"  # KIS API 공식 토큰 발급 엔드포인트 경로
         body = {
             "grant_type": "client_credentials",
             "appkey": self.app_key,

@@ -86,7 +86,8 @@ def main() -> None:
 
     def _handle_signal(signum: int, frame: object) -> None:
         nonlocal _shutdown
-        logger.info("종료 신호 수신 (%s). 다음 사이클 후 청산합니다.", signal.Signals(signum).name)
+        sig_name = signal.strsignal(signum) or str(signum)
+        logger.info("종료 신호 수신 (%s). 다음 사이클 후 청산합니다.", sig_name)
         _shutdown = True
 
     signal.signal(signal.SIGINT, _handle_signal)
