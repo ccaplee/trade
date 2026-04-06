@@ -1,0 +1,61 @@
+# 한국투자증권 KIS Open API 설정 파일
+# 실제 값으로 교체하세요
+
+kis:
+  # 모의투자: true, 실투자: false
+  mock: true
+
+  # 모의투자 환경
+  mock_app_key: "YOUR_MOCK_APP_KEY"
+  mock_app_secret: "YOUR_MOCK_APP_SECRET"
+  mock_base_url: "https://openapivts.koreainvestment.com:29443"
+  mock_ws_url: "ws://ops.koreainvestment.com:31000"
+
+  # 실투자 환경
+  real_app_key: "YOUR_REAL_APP_KEY"
+  real_app_secret: "YOUR_REAL_APP_SECRET"
+  real_base_url: "https://openapi.koreainvestment.com:9443"
+  real_ws_url: "ws://ops.koreainvestment.com:21000"
+
+  # 계좌 정보
+  account_no: "XXXXXXXX"    # 계좌번호 앞 8자리
+  account_product_code: "01" # 계좌상품코드
+
+trading:
+  # 매매 대상 ETF 종목 코드 목록
+  etf_list:
+    - "069500"  # KODEX 200
+    - "114800"  # KODEX 인버스
+    - "122630"  # KODEX 레버리지
+    - "252670"  # KODEX 200선물인버스2X
+    - "102110"  # TIGER 200
+    - "367380"  # KODEX 미국나스닥100
+    - "233740"  # KODEX 코스닥150 레버리지
+
+  # 리스크 관리
+  max_buy_amount: 500000       # 종목당 최대 매수 금액 (원)
+  stop_loss_pct: -1.5          # 손절 기준 (%)
+  take_profit_pct: 1.0         # 익절 기준 (%)
+  max_daily_loss_pct: -3.0     # 일일 최대 손실 한도 (%)
+  max_positions: 3             # 최대 동시 보유 종목 수
+
+  # 전략 파라미터
+  rsi_period: 14               # RSI 계산 기간
+  rsi_oversold: 30             # RSI 과매도 기준
+  rsi_overbought: 70           # RSI 과매수 기준
+  ma_short: 5                  # 단기 이동평균 기간
+  ma_long: 20                  # 장기 이동평균 기간
+  bb_period: 20                # 볼린저 밴드 기간
+  bb_std: 2.0                  # 볼린저 밴드 표준편차 배수
+  volume_ratio_min: 1.5        # 최소 거래량 비율 (평균 대비)
+
+  # 운영 시간
+  market_open: "09:00"         # 장 시작 시간
+  market_close: "15:20"        # 장 마감 시간 (15:30 전 정리)
+  pre_close_exit: "15:20"      # 장 마감 전 포지션 정리 시간
+
+logging:
+  level: "INFO"
+  file: "logs/trading.log"
+  rotation: "1 day"
+  retention: "30 days"
